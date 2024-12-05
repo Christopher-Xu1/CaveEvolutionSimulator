@@ -38,13 +38,14 @@ class Organism:
 
     @staticmethod
     def reproduce(parent1, parent2):
-        child_genetics = {}
-        for trait in parent1.genetics:
-            # Child inherits each trait from one of the parents
-            if random.random() < 0.5:
-                child_genetics[trait] = parent1.genetics[trait]
-            else:
-                child_genetics[trait] = parent2.genetics[trait]
+        child_genetics = {
+            trait: (
+                parent1.genetics[trait]
+                if random.random() < 0.5
+                else parent2.genetics[trait]
+            )
+            for trait in parent1.genetics
+        }
         return Organism(genetics=child_genetics)
 
     def calculate_fitness(self, environment):

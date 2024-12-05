@@ -38,6 +38,13 @@ class Organism:
 
     @staticmethod
     def reproduce(parent1, parent2):
+        """
+        Create a new organism by combining genetics of two parents.
+
+        :param parent1: First parent organism.
+        :param parent2: Second parent organism.
+        :return: A new Organism instance representing the offspring.
+        """
         child_genetics = {}
         for trait in parent1.genetics:
             # Child inherits each trait from one of the parents
