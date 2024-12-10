@@ -1,5 +1,3 @@
-import random
-import numpy as np
 class Organism:
     def __init__(self, genetics=None):
         if genetics is not None:
