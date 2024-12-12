@@ -93,7 +93,7 @@ if __name__ == "__main__":
     initial_population_size = int(input("Enter initial population size: "))
     preset_name = input("Enter cave preset (default_cave, rich_cave, harsh_cave): ")
     fitness_threshold = float(input("Enter minimum fitness threshold (e.g., 0.2): "))
-    egg_count = int(input("Enter egg count per reproduction event (e.g., 3000 for Astyanax mexicanus, 50 for mammoth cave fish): "))
+    egg_count = int(input("Enter egg count per reproduction event (e.g., 3000 for Astyanax mexicanus): "))
     carrying_capacity = int(input("Enter carrying capacity (e.g., 1000): "))
     run_simulation(
         num_decades,
