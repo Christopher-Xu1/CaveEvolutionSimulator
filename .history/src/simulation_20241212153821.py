@@ -1,10 +1,3 @@
-import numpy as np
-import random
-from environment import Environment
-from organism import Organism
-from evolution import update_optimal_traits
-import matplotlib.pyplot as plt
-
 def run_simulation(
     num_decades,
     initial_population_size,
@@ -82,24 +75,6 @@ def run_simulation(
     plt.grid()
     plt.show()
 
-
-    # Unified plot
-    plt.figure(figsize=(12, 8))
-    generations = range(len(population_sizes))
-
-    # Plot population size
-    plt.plot(generations, population_sizes, label="Population Size", color="blue", linewidth=2)
-
-    # Plot trait averages
-    for trait, averages in trait_averages.items():
-        plt.plot(generations, averages, label=f"Average {trait.capitalize()}", linewidth=2)
-
-    plt.xlabel("Generation")
-    plt.ylabel("Values")
-    plt.title("Population Growth and Trait Evolution")
-    plt.legend()
-    plt.grid()
-    plt.show()
 
 if __name__ == "__main__":
     num_decades = int(input("Enter simulation runtime in decades: "))

@@ -39,27 +39,30 @@ def run_simulation(
             print("Population extinct!")
             break
 
-        total_offspring = sum(
-            int(egg_count / (1 + egg_count / 50)) for _ in viable_population
-        )
-        if total_offspring > carrying_capacity:
-            total_offspring = carrying_capacity
+        # Adjust survival rate based on egg count
+        survival_rate = 1 / (1 + (egg_count / 2))
+        total_offspring = sum(int(egg_count * survival_rate) for _ in viable_population)
 
+        # Create offspring population
         parents = random.choices(
             viable_population,
             weights=[org.fitness for org in viable_population],
-            k=total_offspring * 2
+            k=min(total_offspring * 2, len(viable_population) * 2)
         )
-        offspring_population = []
+        new_population = []
         for i in range(0, len(parents), 2):
             if i + 1 < len(parents):
                 offspring = Organism.reproduce(parents[i], parents[i + 1])
                 offspring.mutate(mutation_rate)
                 offspring.move_to_patch(environment)
                 offspring.calculate_fitness(offspring.environment_patch)
-                offspring_population.append(offspring)
+                new_population.append(offspring)
 
-        population = offspring_population[:carrying_capacity]
+        # Enforce carrying capacity
+        if len(new_population) > carrying_capacity:
+            new_population = random.sample(new_population, carrying_capacity)
+
+        population = new_population
         population_sizes.append(len(population))
 
         for trait in trait_averages:
@@ -72,25 +75,6 @@ def run_simulation(
     generations = range(len(population_sizes))
     plt.plot(generations, population_sizes, label="Population Size", color="blue", linewidth=2)
 
-    for trait, averages in trait_averages.items():
-        plt.plot(generations, averages, label=f"Average {trait.capitalize()}", linewidth=2)
-
-    plt.xlabel("Generation")
-    plt.ylabel("Values")
-    plt.title("Population Growth and Trait Evolution")
-    plt.legend()
-    plt.grid()
-    plt.show()
-
-
-    # Unified plot
-    plt.figure(figsize=(12, 8))
-    generations = range(len(population_sizes))
-
-    # Plot population size
-    plt.plot(generations, population_sizes, label="Population Size", color="blue", linewidth=2)
-
-    # Plot trait averages
     for trait, averages in trait_averages.items():
         plt.plot(generations, averages, label=f"Average {trait.capitalize()}", linewidth=2)
 

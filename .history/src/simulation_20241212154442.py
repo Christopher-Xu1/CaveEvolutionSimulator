@@ -1,9 +1,5 @@
-import numpy as np
-import random
-from environment import Environment
-from organism import Organism
-from evolution import update_optimal_traits
 import matplotlib.pyplot as plt
+import numpy as np
 
 def run_simulation(
     num_decades,
@@ -28,10 +24,10 @@ def run_simulation(
             update_optimal_traits(patch)
 
         for organism in population:
-            organism.move_to_patch(environment)  # Assign a valid patch
+            organism.move_to_patch(environment)
 
         for organism in population:
-            organism.calculate_fitness(organism.environment_patch)  # Calculate fitness
+            organism.calculate_fitness(organism.environment_patch)
 
         viable_population = [org for org in population if org.fitness >= fitness_threshold]
 
@@ -68,51 +64,32 @@ def run_simulation(
             )
             trait_averages[trait].append(avg_trait)
 
-    plt.figure(figsize=(12, 8))
+    # Separate Plot for Population Growth
+    plt.figure(figsize=(10, 6))
     generations = range(len(population_sizes))
     plt.plot(generations, population_sizes, label="Population Size", color="blue", linewidth=2)
-
-    for trait, averages in trait_averages.items():
-        plt.plot(generations, averages, label=f"Average {trait.capitalize()}", linewidth=2)
-
     plt.xlabel("Generation")
-    plt.ylabel("Values")
-    plt.title("Population Growth and Trait Evolution")
+    plt.ylabel("Population Size")
+    plt.title("Population Growth Over Time")
     plt.legend()
     plt.grid()
     plt.show()
 
+    # Combined Plot: Normalize Population Growth
+    max_population = max(population_sizes) if population_sizes else 1
+    normalized_population_sizes = [size / max_population for size in population_sizes]
 
-    # Unified plot
     plt.figure(figsize=(12, 8))
-    generations = range(len(population_sizes))
-
-    # Plot population size
-    plt.plot(generations, population_sizes, label="Population Size", color="blue", linewidth=2)
+    # Plot normalized population size
+    plt.plot(generations, normalized_population_sizes, label="Normalized Population Size", color="blue", linestyle="--", linewidth=2)
 
     # Plot trait averages
     for trait, averages in trait_averages.items():
         plt.plot(generations, averages, label=f"Average {trait.capitalize()}", linewidth=2)
 
     plt.xlabel("Generation")
-    plt.ylabel("Values")
+    plt.ylabel("Trait Values (Normalized Population Size)")
     plt.title("Population Growth and Trait Evolution")
     plt.legend()
     plt.grid()
     plt.show()
-
-if __name__ == "__main__":
-    num_decades = int(input("Enter simulation runtime in decades: "))
-    initial_population_size = int(input("Enter initial population size: "))
-    preset_name = input("Enter cave preset (default_cave, rich_cave, harsh_cave): ")
-    fitness_threshold = float(input("Enter minimum fitness threshold (e.g., 0.2): "))
-    egg_count = int(input("Enter egg count per reproduction event (e.g., 3000 for Astyanax mexicanus, 50 for mammoth cave fish): "))
-    carrying_capacity = int(input("Enter carrying capacity (e.g., 1000): "))
-    run_simulation(
-        num_decades,
-        initial_population_size,
-        preset_name,
-        fitness_threshold=fitness_threshold,
-        egg_count=egg_count,
-        carrying_capacity=carrying_capacity,
-    )

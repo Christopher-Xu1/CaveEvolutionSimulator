@@ -5,6 +5,9 @@ from organism import Organism
 from evolution import update_optimal_traits
 import matplotlib.pyplot as plt
 
+import matplotlib.pyplot as plt
+import numpy as np
+
 def run_simulation(
     num_decades,
     initial_population_size,
@@ -28,10 +31,10 @@ def run_simulation(
             update_optimal_traits(patch)
 
         for organism in population:
-            organism.move_to_patch(environment)  # Assign a valid patch
+            organism.move_to_patch(environment)
 
         for organism in population:
-            organism.calculate_fitness(organism.environment_patch)  # Calculate fitness
+            organism.calculate_fitness(organism.environment_patch)
 
         viable_population = [org for org in population if org.fitness >= fitness_threshold]
 
@@ -40,7 +43,7 @@ def run_simulation(
             break
 
         total_offspring = sum(
-            int(egg_count / (1 + egg_count / 50)) for _ in viable_population
+            int(egg_count / (1 + egg_count / 20)) for _ in viable_population
         )
         if total_offspring > carrying_capacity:
             total_offspring = carrying_capacity
@@ -68,34 +71,31 @@ def run_simulation(
             )
             trait_averages[trait].append(avg_trait)
 
-    plt.figure(figsize=(12, 8))
+    # Separate Plot for Population Growth
+    plt.figure(figsize=(10, 6))
     generations = range(len(population_sizes))
     plt.plot(generations, population_sizes, label="Population Size", color="blue", linewidth=2)
-
-    for trait, averages in trait_averages.items():
-        plt.plot(generations, averages, label=f"Average {trait.capitalize()}", linewidth=2)
-
     plt.xlabel("Generation")
-    plt.ylabel("Values")
-    plt.title("Population Growth and Trait Evolution")
+    plt.ylabel("Population Size")
+    plt.title("Population Growth Over Time")
     plt.legend()
     plt.grid()
     plt.show()
 
+    # Combined Plot: Normalize Population Growth
+    max_population = max(population_sizes) if population_sizes else 1
+    normalized_population_sizes = [size / max_population for size in population_sizes]
 
-    # Unified plot
     plt.figure(figsize=(12, 8))
-    generations = range(len(population_sizes))
-
-    # Plot population size
-    plt.plot(generations, population_sizes, label="Population Size", color="blue", linewidth=2)
+    # Plot normalized population size
+    plt.plot(generations, normalized_population_sizes, label="Normalized Population Size", color="blue", linestyle="--", linewidth=2)
 
     # Plot trait averages
     for trait, averages in trait_averages.items():
         plt.plot(generations, averages, label=f"Average {trait.capitalize()}", linewidth=2)
 
     plt.xlabel("Generation")
-    plt.ylabel("Values")
+    plt.ylabel("Trait Values (Normalized Population Size)")
     plt.title("Population Growth and Trait Evolution")
     plt.legend()
     plt.grid()

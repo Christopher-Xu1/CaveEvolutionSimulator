@@ -47,15 +47,12 @@ class Environment:
                 patch['light_level'] = max(0, min(1, patch['light_level'] + random.uniform(-0.1, 0.1)))
                 patch['food_availability'] = max(0, min(1, patch['food_availability'] + random.uniform(-0.1, 0.1)))
 
-    def get_patch(self):
-        """
-        Return a random patch from the environment.
-        
-        :return: A dictionary representing a patch.
-        """
-        if not self.patches:
-            raise ValueError("Environment has no patches available.")
-        return random.choice(self.patches)
+def move_to_patch(self, environment):
+    """
+    Assign the organism to a random patch from the environment.
+    """
+    self.environment_patch = environment.get_patch()
+
 
     @staticmethod
     def cave_presets(preset_name):

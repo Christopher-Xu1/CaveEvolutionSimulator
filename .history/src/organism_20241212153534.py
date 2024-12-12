@@ -28,19 +28,19 @@ class Organism:
             child_genetics[trait] = random.choice([parent1.genetics[trait], parent2.genetics[trait]])
         return Organism(genetics=child_genetics)
 
-    def calculate_fitness(self, environment_patch):
-        """
-        Calculate fitness based on the organism's traits and the environment's optimal traits.
-        """
-        if environment_patch is None or 'optimal_traits' not in environment_patch:
-            raise ValueError("Invalid environment patch. Cannot calculate fitness.")
+def calculate_fitness(self, environment_patch):
+    """
+    Calculate fitness based on the organism's traits and the environment's optimal traits.
+    """
+    if environment_patch is None or 'optimal_traits' not in environment_patch:
+        raise ValueError("Invalid environment patch. Cannot calculate fitness.")
 
-        optimal_traits = environment_patch['optimal_traits']
-        fitness = 0
-        for trait, value in self.genetics.items():
-            optimal = optimal_traits.get(trait, 0.5)  # Default optimal trait value is 0.5
-            fitness += (1 - abs(value - optimal))  # Fitness inversely proportional to deviation
-        self.fitness = fitness / len(self.genetics)  # Normalize fitness to [0, 1]
+    optimal_traits = environment_patch['optimal_traits']
+    fitness = 0
+    for trait, value in self.genetics.items():
+        optimal = optimal_traits.get(trait, 0.5)  # Default optimal trait value is 0.5
+        fitness += (1 - abs(value - optimal))  # Fitness inversely proportional to deviation
+    self.fitness = fitness / len(self.genetics)  # Normalize fitness to [0, 1]
 
     def move_to_patch(self, environment):
         self.environment_patch = environment.get_patch()
