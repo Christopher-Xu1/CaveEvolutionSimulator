@@ -2,6 +2,11 @@ import random
 import numpy as np
 
 class Environment:
+    def __init__(self, optimal_traits=None, environmental_conditions=None, num_patches=1):
+        self.num_patches = num_patches
+        self.patches = []
+        
+        class Environment:
     def __init__(self, num_patches=1):
         self.patches = []
         for _ in range(num_patches):

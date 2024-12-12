@@ -1,7 +1,7 @@
 from environment import Environment
 from organism import Organism
 from evolution import update_optimal_traits
-import random 
+from random 
 
 def run_simulation(num_generations, initial_population_size, mutation_rate, num_patches=1):
     environment = Environment(num_patches=num_patches)

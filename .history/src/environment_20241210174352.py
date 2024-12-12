@@ -2,22 +2,24 @@ import random
 import numpy as np
 
 class Environment:
-    def __init__(self, num_patches=1):
+    def __init__(self, optimal_traits=None, environmental_conditions=None, num_patches=1):
+        self.num_patches = num_patches
         self.patches = []
+        self.environmental_conditions = envir
+        
         for _ in range(num_patches):
             self.patches.append({
                 'light_level': random.uniform(0, 1),
                 'food_availability': random.uniform(0, 1),
                 'humidity': random.uniform(0.6, 1.0),
                 'temperature': random.uniform(10, 20),
-                'optimal_traits': {
+                'optimal_traits': optimal_traits or {
                     'pigmentation': 0.0,
                     'eye_size': 0.0,
                     'antennae_length': 1.0,
                     'metabolic_rate': 0.3,
                 }
             })
-
 
     def change_conditions(self, changes=None):
         """
