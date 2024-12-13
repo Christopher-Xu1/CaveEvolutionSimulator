@@ -47,7 +47,7 @@ def run_simulation(
             break
 
         total_offspring = sum(
-            int(egg_count / (1 + egg_count / 20)) for _ in viable_population
+            int(egg_count / (1 + egg_count / 50)) for _ in viable_population
         )
         if total_offspring > carrying_capacity:
             total_offspring = carrying_capacity

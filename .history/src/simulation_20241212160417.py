@@ -5,13 +5,6 @@ from organism import Organism
 from evolution import update_optimal_traits
 import matplotlib.pyplot as plt
 
-import numpy as np
-import random
-from environment import Environment
-from organism import Organism
-from evolution import update_optimal_traits
-import matplotlib.pyplot as plt
-
 def run_simulation(
     num_decades,
     initial_population_size,
@@ -19,7 +12,8 @@ def run_simulation(
     num_patches=1,
     fitness_threshold=0.2,
     egg_count=3000,
-    carrying_capacity=1000
+    carrying_capacity=1000,
+    mortality_rate=0.2,
 ):
     mutation_rate = 5.97e-9
     num_generations = num_decades * 10  # 10 generations per decade
@@ -30,95 +24,78 @@ def run_simulation(
     trait_averages = {"pigmentation": [], "eye_size": [], "metabolic_rate": []}
 
     for generation in range(1, num_generations + 1):
+        # Update environment
         environment.change_conditions()
         for patch in environment.patches:
             update_optimal_traits(patch)
 
+        # Assign organisms to patches and calculate fitness
         for organism in population:
             organism.move_to_patch(environment)
-
-        for organism in population:
             organism.calculate_fitness(organism.environment_patch)
 
+        # Select viable organisms based on fitness threshold
         viable_population = [org for org in population if org.fitness >= fitness_threshold]
 
         if not viable_population:
             print("Population extinct!")
             break
 
-        total_offspring = sum(
-            int(egg_count / (1 + egg_count / 20)) for _ in viable_population
-        )
-        if total_offspring > carrying_capacity:
-            total_offspring = carrying_capacity
-
-        parents = random.choices(
-            viable_population,
-            weights=[org.fitness for org in viable_population],
-            k=total_offspring * 2
-        )
+        # Reproduce with carrying capacity constraints
+        total_offspring = 0
         offspring_population = []
-        for i in range(0, len(parents), 2):
-            if i + 1 < len(parents):
-                offspring = Organism.reproduce(parents[i], parents[i + 1])
+
+        for organism in viable_population:
+            # Calculate offspring survival
+            offspring_count = int(egg_count / (1 + egg_count / 50))  # Proportional survival
+            survival_rate = carrying_capacity / max(carrying_capacity, len(population))
+            surviving_offspring = int(offspring_count * survival_rate)
+
+            # Generate offspring
+            for _ in range(surviving_offspring):
+                parents = random.choices(
+                    viable_population,
+                    weights=[org.fitness for org in viable_population],
+                    k=2,
+                )
+                offspring = Organism.reproduce(parents[0], parents[1])
                 offspring.mutate(mutation_rate)
                 offspring.move_to_patch(environment)
                 offspring.calculate_fitness(offspring.environment_patch)
                 offspring_population.append(offspring)
 
-        population = offspring_population[:carrying_capacity]
-        population_sizes.append(len(population))
+            total_offspring += len(offspring_population)
 
+        # Limit population size to carrying capacity
+        population = viable_population + offspring_population
+        population = random.sample(population, min(len(population), carrying_capacity))
+
+        # Apply stochastic mortality
+        surviving_population = int(len(population) * (1 - mortality_rate))
+        population = random.sample(population, surviving_population)
+
+        # Record population size and trait averages
+        population_sizes.append(len(population))
         for trait in trait_averages:
             avg_trait = (
                 np.mean([org.genetics[trait] for org in population]) if population else 0
             )
             trait_averages[trait].append(avg_trait)
 
-    # Plot population size
-    plt.figure(figsize=(12, 6))
+    # Unified plot
+    plt.figure(figsize=(12, 8))
     generations = range(len(population_sizes))
     plt.plot(generations, population_sizes, label="Population Size", color="blue", linewidth=2)
-    plt.xlabel("Generation")
-    plt.ylabel("Population Size")
-    plt.title("Population Size Over Time")
-    plt.legend()
-    plt.grid()
-    plt.show()
 
-    # Plot trait averages with relative scaling
-    plt.figure(figsize=(12, 6))
     for trait, averages in trait_averages.items():
-        plt.plot(
-            generations,
-            [avg / max(averages) if max(averages) > 0 else 0 for avg in averages],
-            label=f"Relative {trait.capitalize()}",
-            linewidth=2
-        )
+        plt.plot(generations, averages, label=f"Average {trait.capitalize()}", linewidth=2)
+
     plt.xlabel("Generation")
-    plt.ylabel("Relative Trait Value")
-    plt.title("Relative Trait Evolution Over Time")
+    plt.ylabel("Values")
+    plt.title("Population Growth and Trait Evolution")
     plt.legend()
     plt.grid()
     plt.show()
-
-if __name__ == "__main__":
-    num_decades = int(input("Enter simulation runtime in decades: "))
-    initial_population_size = int(input("Enter initial population size: "))
-    preset_name = input("Enter cave preset (default_cave, rich_cave, harsh_cave): ")
-    fitness_threshold = float(input("Enter minimum fitness threshold (e.g., 0.2): "))
-    egg_count = int(input("Enter egg count per reproduction event (e.g., 3000 for Astyanax mexicanus): "))
-    carrying_capacity = int(input("Enter carrying capacity (e.g., 1000): "))
-    run_simulation(
-        num_decades,
-        initial_population_size,
-        preset_name,
-        num_patches=1,
-        fitness_threshold=fitness_threshold,
-        egg_count=egg_count,
-        carrying_capacity=carrying_capacity
-    )
-
 
 if __name__ == "__main__":
     num_decades = int(input("Enter simulation runtime in decades: "))
