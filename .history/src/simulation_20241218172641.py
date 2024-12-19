@@ -4,7 +4,6 @@ from environment import Environment
 from organism import Organism
 from evolution import update_optimal_traits
 import matplotlib.pyplot as plt
-
 def run_simulation(num_decades, initial_population_size, preset_name, num_patches=1, fitness_threshold=0.5, egg_count=50, carrying_capacity=1000):
     mutation_rate = 5.97e-9
     num_generations = num_decades * 10  # 10 generations per decade
@@ -46,6 +45,18 @@ def run_simulation(num_decades, initial_population_size, preset_name, num_patche
             avg_trait = np.mean([org.genetics[trait] for org in population]) if population else 0
             trait_averages[trait].append(avg_trait)
 
+        # Debugging population size at the end of the generation
+        print(f"Generation {generation}: Population Size = {len(population)}")
+        print(f"- Egg Survival Rate: {egg_survival_rate:.4f}")
+        print(f"- Average Fitness: {np.mean([org.fitness for org in population]) if population else 0:.4f}")
+
+        population_sizes.append(len(population))
+
+        for trait in trait_averages:
+            avg_trait = (
+                np.mean([org.genetics[trait] for org in population]) if population else 0
+            )
+            trait_averages[trait].append(avg_trait)
 
     # Plot population size
     plt.figure(figsize=(12, 6))

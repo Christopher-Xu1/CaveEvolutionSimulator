@@ -5,7 +5,15 @@ from organism import Organism
 from evolution import update_optimal_traits
 import matplotlib.pyplot as plt
 
-def run_simulation(num_decades, initial_population_size, preset_name, num_patches=1, fitness_threshold=0.5, egg_count=50, carrying_capacity=1000):
+def run_simulation(
+    num_decades,
+    initial_population_size,
+    preset_name,
+    num_patches=1,
+    fitness_threshold=0.5,
+    egg_count=50,
+    carrying_capacity=1000
+):
     mutation_rate = 5.97e-9
     num_generations = num_decades * 10  # 10 generations per decade
     environment = Environment(num_patches=num_patches, preset=Environment.cave_presets(preset_name))
@@ -13,6 +21,12 @@ def run_simulation(num_decades, initial_population_size, preset_name, num_patche
 
     population_sizes = []
     trait_averages = {"pigmentation": [], "eye_size": [], "metabolic_rate": []}
+
+# Ensure correct initial population size
+    population = [Organism() for _ in range(initial_population_size)]
+
+    # Debugging the initial setup
+    print(f"Initial Population Size: {len(population)} (User Input: {initial_population_size})")
 
     for generation in range(1, num_generations + 1):
         environment.change_conditions()
@@ -25,27 +39,50 @@ def run_simulation(num_decades, initial_population_size, preset_name, num_patche
         for organism in population:
             organism.calculate_fitness(organism.environment_patch)
 
-        viable_population = [org for org in population if org.fitness >= fitness_threshold]
+        # Filter viable population based on fitness
+        viable_population = [org for org in population if org.fitness >= (fitness_threshold+random.uniform(-0.1, 0.1))]
+        
         if not viable_population:
             print("Population extinct!")
             break
 
+        # Debugging viable population
+        print(f"Generation {generation}: Viable Population Size = {len(viable_population)}")
+
+        # Calculate density-dependent survival rate with a minimum threshold
+        egg_survival_rate = (1+organism.environment_patch.get("food_availability"))**2/(egg_count)
+
+        # Generate offspring based on fitness and survival rate
         offspring_population = []
         for organism in viable_population:
-            num_offspring = max(1, int((organism.fitness * egg_count)))
+            num_offspring = max(1, int((organism.fitness * egg_count * egg_survival_rate) * random.gauss(0.5+organism.fitness, 0.2)))
             for _ in range(num_offspring):
                 if len(offspring_population) < carrying_capacity:
-                    parents = random.choices(viable_population, k=1)
+                    parents = random.choices(
+                        viable_population,
+                        weights=[org.fitness for org in viable_population],
+                        k=1
+                    )
                     offspring = Organism.reproduce(parents[0], organism)
                     offspring.mutate(mutation_rate)
+                    offspring.move_to_patch(environment)
+                    offspring.calculate_fitness(offspring.environment_patch)
                     offspring_population.append(offspring)
 
         population = offspring_population
-        population_sizes.append(len(population))
-        for trait in trait_averages:
-            avg_trait = np.mean([org.genetics[trait] for org in population]) if population else 0
-            trait_averages[trait].append(avg_trait)
 
+        # Debugging population size at the end of the generation
+        print(f"Generation {generation}: Population Size = {len(population)}")
+        print(f"- Egg Survival Rate: {egg_survival_rate:.4f}")
+        print(f"- Average Fitness: {np.mean([org.fitness for org in population]) if population else 0:.4f}")
+
+        population_sizes.append(len(population))
+
+        for trait in trait_averages:
+            avg_trait = (
+                np.mean([org.genetics[trait] for org in population]) if population else 0
+            )
+            trait_averages[trait].append(avg_trait)
 
     # Plot population size
     plt.figure(figsize=(12, 6))
