@@ -76,7 +76,7 @@ def run_simulation(
             print(f"    {trait}: {values[-1]:.4f}")
 
         # Calculate surviving probabilities using probabilistic selection based on fitness
-        surviving_population = [org for org in population if random.random()-0.1 < org.fitness]
+        surviving_population = [org for org in population if random.random()-1 < org.fitness]
 
         if not surviving_population:
             print(f"Generation {generation}: Population extinct!")

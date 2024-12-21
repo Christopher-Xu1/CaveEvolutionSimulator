@@ -17,7 +17,29 @@ def run_simulation(
     mutation_rate = 0.0026
     num_generations = num_decades * 10  # 10 generations per decade
     environment = Environment(num_patches=num_patches, preset=Environment.cave_presets(preset_name))
-    
+    classDiagram
+    class Organism {
+        +genetics: dict
+        +fitness: float
+        +metabolic_rate: float
+        +environment_patch: dict
+        +move_to_patch(environment)
+        +calculate_fitness(patch)
+        +reproduce(parent1, parent2)
+        +mutate(mutation_rate)
+    }
+    class Environment {
+        +patches: list
+        +cave_presets(preset_name)
+        +replenish_food()
+    }
+    class Simulation {
+        +run_simulation(num_decades, initial_population_size, preset_name, num_patches, egg_count, carrying_capacity)
+        +plot_results_separate(population_sizes, average_fitness, trait_averages, food_availability)
+    }
+    Organism --> Environment: interacts with
+    Simulation --> Organism: manages
+    Simulation --> Environment: configures
     # Assign a unique integer ID to each patch
     for idx, patch in enumerate(environment.patches):
         patch['id'] = idx
@@ -76,7 +98,7 @@ def run_simulation(
             print(f"    {trait}: {values[-1]:.4f}")
 
         # Calculate surviving probabilities using probabilistic selection based on fitness
-        surviving_population = [org for org in population if random.random()-0.1 < org.fitness]
+        surviving_population = [org for org in population if random.uniform(0,0.7) < org.fitness]
 
         if not surviving_population:
             print(f"Generation {generation}: Population extinct!")
@@ -222,7 +244,7 @@ if __name__ == "__main__":
 
     # Run the simulation with predefined parameters
     run_simulation(
-        num_decades=100,
+        num_decades=10,
         initial_population_size=2000,
         preset_name="harsh_cave",
         num_patches=1,

@@ -76,7 +76,7 @@ def run_simulation(
             print(f"    {trait}: {values[-1]:.4f}")
 
         # Calculate surviving probabilities using probabilistic selection based on fitness
-        surviving_population = [org for org in population if random.random()-0.1 < org.fitness]
+        surviving_population = [org for org in population if random.random() < org.fitness]
 
         if not surviving_population:
             print(f"Generation {generation}: Population extinct!")
@@ -222,7 +222,7 @@ if __name__ == "__main__":
 
     # Run the simulation with predefined parameters
     run_simulation(
-        num_decades=100,
+        num_decades=10,
         initial_population_size=2000,
         preset_name="harsh_cave",
         num_patches=1,
