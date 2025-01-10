@@ -1,5 +1,5 @@
 import streamlit as st
-from models.simulation import run_simulation
+from ..models.simulation import run_simulation
 import pandas as pd
 import matplotlib.pyplot as plt
 
