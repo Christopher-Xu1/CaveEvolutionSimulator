@@ -84,6 +84,16 @@ if st.sidebar.button("Run Simulation"):
             egg_count=egg_count,
             carrying_capacity=carrying_capacity,
         )
+
+        results = run_simulation(
+            num_decades=num_decades,
+            initial_population_size=population_size,
+            mutation_rate=mutation_rate,
+            preset_name=preset_name,
+            num_patches=num_patches,
+            egg_count=egg_count,
+            carrying_capacity=carrying_capacity,
+        )
         # Store results in session state
         st.session_state["results"] = results
         st.success("Simulation Complete!")

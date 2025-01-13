@@ -24,62 +24,20 @@ mutation_rate = st.sidebar.number_input(
     step=0.00001,
     format="%.5f"  # Display up to 5 decimal places
 )
+preset_name = st.sidebar.selectbox("Cave Preset", ["default_cave", "rich_cave", "harsh_cave"])
+
+num_patches = st.sidebar.number_input("Number of Patches", min_value=1, value=1)
 egg_count = st.sidebar.number_input("Egg Count Per Reproduction", min_value=1, value=50)
 carrying_capacity = st.sidebar.number_input("Carrying Capacity", min_value=100, value=2000)
-
-# Sidebar for Environment Configuration
-st.sidebar.header("Environment Configuration")
-environment_option = st.sidebar.radio(
-    "Choose Environment Setup:",
-    ["Preset Environment", "Custom Environment"]
-)
-
-if environment_option == "Preset Environment":
-    # Choose from predefined presets
-    preset_name = st.sidebar.selectbox(
-        "Cave Preset",
-        ["default_cave", "rich_cave", "harsh_cave"]
-    )
-    num_patches = st.sidebar.number_input("Number of Patches", min_value=1, value=1)
-    light_level = None  # Use preset values
-    food_availability = None  # Use preset values
-else:
-    # Custom Environment setup
-    st.sidebar.write("Custom Environment Settings:")
-    num_patches = st.sidebar.number_input("Number of Patches", min_value=1, value=3)
-    light_level = st.sidebar.slider(
-        "Light Level (0 = Complete Darkness, 0.5 = Lit)",
-        0.0, 0.5, 0.1
-    )
-    food_availability = st.sidebar.slider(
-        "Food Availability (0 = Scarce, 1 = Abundant)",
-        0.0, 1.0, 0.5
-    )
-    preset_name = None  # No preset used
-
 
 # Run simulation and store results in session state
 if st.sidebar.button("Run Simulation"):
     with st.spinner("Running simulation..."):
-        if environment_option == "Preset Environment":
-            # Initialize environment using preset
-            environment = Environment(
-                num_patches=num_patches,
-                preset=Environment.cave_presets(preset_name)
-            )
-        else:
-            # Initialize environment with custom settings
-            environment = Environment(num_patches=num_patches)
-            for patch in environment.patches:
-                patch["light_level"] = light_level
-                patch["food_availability"] = food_availability
-
-        # Run the simulation
         results = run_simulation(
             num_decades=num_decades,
             initial_population_size=population_size,
             mutation_rate=mutation_rate,
-            preset_name=preset_name,  # None for custom environment
+            preset_name=preset_name,
             num_patches=num_patches,
             egg_count=egg_count,
             carrying_capacity=carrying_capacity,

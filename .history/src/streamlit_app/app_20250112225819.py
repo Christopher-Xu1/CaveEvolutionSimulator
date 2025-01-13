@@ -26,7 +26,6 @@ mutation_rate = st.sidebar.number_input(
 )
 egg_count = st.sidebar.number_input("Egg Count Per Reproduction", min_value=1, value=50)
 carrying_capacity = st.sidebar.number_input("Carrying Capacity", min_value=100, value=2000)
-
 # Sidebar for Environment Configuration
 st.sidebar.header("Environment Configuration")
 environment_option = st.sidebar.radio(
@@ -58,28 +57,15 @@ else:
     preset_name = None  # No preset used
 
 
+
 # Run simulation and store results in session state
 if st.sidebar.button("Run Simulation"):
     with st.spinner("Running simulation..."):
-        if environment_option == "Preset Environment":
-            # Initialize environment using preset
-            environment = Environment(
-                num_patches=num_patches,
-                preset=Environment.cave_presets(preset_name)
-            )
-        else:
-            # Initialize environment with custom settings
-            environment = Environment(num_patches=num_patches)
-            for patch in environment.patches:
-                patch["light_level"] = light_level
-                patch["food_availability"] = food_availability
-
-        # Run the simulation
         results = run_simulation(
             num_decades=num_decades,
             initial_population_size=population_size,
             mutation_rate=mutation_rate,
-            preset_name=preset_name,  # None for custom environment
+            preset_name=preset_name,
             num_patches=num_patches,
             egg_count=egg_count,
             carrying_capacity=carrying_capacity,

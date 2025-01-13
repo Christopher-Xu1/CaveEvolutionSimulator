@@ -58,28 +58,15 @@ else:
     preset_name = None  # No preset used
 
 
+
 # Run simulation and store results in session state
 if st.sidebar.button("Run Simulation"):
     with st.spinner("Running simulation..."):
-        if environment_option == "Preset Environment":
-            # Initialize environment using preset
-            environment = Environment(
-                num_patches=num_patches,
-                preset=Environment.cave_presets(preset_name)
-            )
-        else:
-            # Initialize environment with custom settings
-            environment = Environment(num_patches=num_patches)
-            for patch in environment.patches:
-                patch["light_level"] = light_level
-                patch["food_availability"] = food_availability
-
-        # Run the simulation
         results = run_simulation(
             num_decades=num_decades,
             initial_population_size=population_size,
             mutation_rate=mutation_rate,
-            preset_name=preset_name,  # None for custom environment
+            preset_name=preset_name,
             num_patches=num_patches,
             egg_count=egg_count,
             carrying_capacity=carrying_capacity,
