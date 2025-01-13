@@ -58,7 +58,15 @@ if "results" in st.session_state:
     st.write("### Average Fitness Over Generations")
     st.line_chart(results["average_fitness"])
 
-    # Dynamic trait toggles for Streamlit line chart
+    # Trait Evolution with Toggles
+    st.write("### Trait Evolution Over Generations")
+    st.write("Select which traits to display:")
+    trait_toggles = {
+        trait: st.checkbox(f"Show {trait.capitalize()}", value=True)
+        for trait in results["trait_averages"].keys()
+    }
+
+        # Dynamic trait toggles for Streamlit line chart
     st.write("### Trait Evolution Over Generations")
     st.write("Select which traits to display:")
     trait_toggles = {

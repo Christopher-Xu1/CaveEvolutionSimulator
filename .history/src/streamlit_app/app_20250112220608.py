@@ -7,7 +7,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'models')))
 
 import pandas as pd
-import streamlit as st
+\import streamlit as st
 from models.simulation import run_simulation
 from models.environment import Environment
 
@@ -58,7 +58,7 @@ if "results" in st.session_state:
     st.write("### Average Fitness Over Generations")
     st.line_chart(results["average_fitness"])
 
-    # Dynamic trait toggles for Streamlit line chart
+    # Trait Evolution with Toggles
     st.write("### Trait Evolution Over Generations")
     st.write("Select which traits to display:")
     trait_toggles = {
@@ -66,9 +66,22 @@ if "results" in st.session_state:
         for trait in results["trait_averages"].keys()
     }
 
-    # Display selected traits using Streamlit's line chart
+    # Filter traits based on toggles
     selected_traits = {trait: values for trait, values in results["trait_averages"].items() if trait_toggles[trait]}
+
+    # Plot selected traits on a single graph
     if selected_traits:
-        st.line_chart(selected_traits)
+        generations = range(1, len(next(iter(selected_traits.values()))) + 1)  # Number of generations
+        plt.figure(figsize=(10, 6))
+        for trait, values in selected_traits.items():
+            plt.plot(generations, values, label=trait.capitalize(), linewidth=2)
+        plt.xlabel("Generation")
+        plt.ylabel("Average Trait Value")
+        plt.title("Trait Evolution Over Generations")
+        plt.legend()
+        plt.grid(True)
+        st.pyplot(plt)
     else:
         st.write("No traits selected for display.")
+else:
+    st.write("Run the simulation to view results.")
