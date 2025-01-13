@@ -189,6 +189,11 @@ if st.session_state["simulation_ran"]:
         st.line_chart(selected_traits)
     else:
         st.write("No traits selected for display.")
+    import seaborn as sns
+
+    df = pd.DataFrame(results["trait_averages"])
+    sns.heatmap(df, cmap="coolwarm", xticklabels=True)
+    st.pyplot()
 
     st.markdown(f"""
     ## Simulation Summary
