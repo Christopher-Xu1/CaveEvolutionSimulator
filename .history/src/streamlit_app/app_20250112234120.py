@@ -9,28 +9,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'm
 import streamlit as st
 from models.simulation import run_simulation
 from models.environment import Environment
-import pandas as pd
-# Function to prepare simulation data for download
-def prepare_csv_data(results):
-    # Create a DataFrame for population sizes and average fitness
-    data = {
-        "Generation": list(range(1, len(results["population_sizes"]) + 1)),
-        "Population Size": results["population_sizes"],
-        "Average Fitness": results["average_fitness"],
-    }
-
-    # Add traits to the DataFrame
-    for trait, values in results["trait_averages"].items():
-        data[f"Trait - {trait.capitalize()}"] = values
-
-    # Add food availability
-    data["Food Availability"] = results["food_availability"]
-
-    # Convert to DataFrame
-    df = pd.DataFrame(data)
-    return df
-
-
 
 # Title and Description
 st.title("Cave Fish Evolution Simulation")
