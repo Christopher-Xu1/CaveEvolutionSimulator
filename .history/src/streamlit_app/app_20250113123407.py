@@ -31,6 +31,7 @@ def prepare_csv_data(results):
     return df
 
 
+st.markdown("<h1 style='text-align: center; color: white;'>Troglobite Evolution Simulator</h1>", unsafe_allow_html=True)
 
 # Title and Description
 st.title("Cave Fish Evolution Simulation")
@@ -101,32 +102,6 @@ else:
     )
     preset_name = None  # No preset used
 
-# Save and Load Configuration
-if st.sidebar.button("Save Configuration"):
-    config = {
-        "num_decades": num_decades,
-        "population_size": population_size,
-        "mutation_rate": mutation_rate,
-        "carrying_capacity": carrying_capacity,
-        "num_patches": num_patches,
-        "light_level": light_level,
-        "food_availability": food_availability,
-        "preset_name": preset_name,
-    }
-    config_json = json.dumps(config)
-    st.download_button("Download Configuration", config_json, "config.json", "application/json")
-
-uploaded_file = st.sidebar.file_uploader("Load Configuration", type="json")
-if uploaded_file is not None:
-    config = json.load(uploaded_file)
-    num_decades = config["num_decades"]
-    population_size = config["population_size"]
-    mutation_rate = config["mutation_rate"]
-    carrying_capacity = config["carrying_capacity"]
-    num_patches = config["num_patches"]
-    light_level = config["light_level"]
-    food_availability = config["food_availability"]
-    preset_name = config["preset_name"]
 
 # Run simulation and store results in session state
 if st.sidebar.button("Run Simulation"):
