@@ -31,7 +31,7 @@ class Environment:
                 patch['food_availability'] = max(0, min(1, patch['food_availability'] + random.uniform(-0.1, 0.1)))
     def replenish_food(self):
         for patch in self.patches:
-            patch['food_availability'] = max(0, patch['food_availability']+0.2*patch['food_availability'])
+            patch['food_availability'] = max(0, patch['food_availability']+*0.2)
 
 
     def get_patch(self):

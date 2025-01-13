@@ -28,10 +28,11 @@ class Environment:
                 for key, value in changes.items():
                     patch[key] = value
             else:
-                patch['food_availability'] = max(0, min(1, patch['food_availability'] + random.uniform(-0.1, 0.1)))
+                patch['light_level'] = max(0, min(1, patch['light_level'] + random.uniform(-0.1, 0.1)))
+                patch['food_availability'] = max(0, min(1, patch['food_availability'] + random.uniform(-0.05, 0.05)))
     def replenish_food(self):
         for patch in self.patches:
-            patch['food_availability'] = max(0, patch['food_availability']+0.2*patch['food_availability'])
+            patch['food_availability'] = max(0, patch['food_availability']+0.1)
 
 
     def get_patch(self):
