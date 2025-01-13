@@ -51,7 +51,7 @@ if not st.session_state["simulation_ran"]:
            - Choose a **preset environment** like `default_cave`, `rich_cave`, or `harsh_cave`, or configure a **custom environment** with your own parameters.
         2. **Adjust Simulation Parameters**:
            - Customize settings such as the number of decades, mutation rate, and carrying capacity in the sidebar.
-           - You can save your settings and use them later by pressing the Save Settings button and pressing Download Settings before running the simulation.
+           - You can save your settings by pressing the Save Settings
         3. **Run the Simulation**:
            - Click **"Run Simulation"** to watch populations evolve across generations.
         
@@ -129,7 +129,7 @@ if st.sidebar.button("Save Settings"):
     )
 
 
-uploaded_file = st.sidebar.file_uploader("Load Settings", type="json")
+uploaded_file = st.sidebar.file_uploader("Load Configuration", type="json")
 if uploaded_file is not None:
     config = json.load(uploaded_file)
     num_decades = config["num_decades"]
