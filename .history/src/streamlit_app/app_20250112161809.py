@@ -1,12 +1,5 @@
 import streamlit as st
-import sys
-import os
-
-# Add the src directory to the Python path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'models')))
-
-from models.simulation import run_simulation  # Import your simulation logic
+import models from src
 from models.simulation import run_simulation
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -17,11 +10,11 @@ st.write("Simulate the evolution of troglobite traits in cave environments over 
 
 # Sidebar for Input Parameters
 st.sidebar.header("Simulation Parameters")
-num_decades = st.sidebar.number_input("Number of Decades", min_value=1, value=10)
-population_size = st.sidebar.number_input("Initial Population Size", min_value=100, value=500)
-mutation_rate = st.sidebar.number_input("Mutation Rate (set to default)", min_value=0, value= 0.00185)
-light_level = st.sidebar.slider("Light Level (0 = Complete Darkness, 0.5 = Lit)", 0.0, 0.5, 0.1)
-food_availability = st.sidebar.slider("Food Availability", 0.0, 0.5, 0.1)
+num_generations = st.sidebar.number_input("Number of Generations", min_value=1, value=10)
+population_size = st.sidebar.number_input("Initial Population Size", min_value=1, value=100)
+mutation_rate = st.sidebar.slider("Mutation Rate", 0.0, 1.0, 0.01)
+light_level = st.sidebar.slider("Light Level (0 = Dark, 1 = Bright)", 0.0, 1.0, 0.1)
+food_availability = st.sidebar.slider("Food Availability (0 = Scarce, 1 = Abundant)", 0.0, 1.0, 0.5)
 
 # Run Simulation Button
 if st.sidebar.button("Run Simulation"):
