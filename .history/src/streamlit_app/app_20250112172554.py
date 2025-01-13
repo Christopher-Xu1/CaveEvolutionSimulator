@@ -59,22 +59,40 @@ else:
         0.0, 1.0, 0.1
     )
     preset_name = None  # No preset used
+
+# Run the simulation
 if st.sidebar.button("Run Simulation"):
     st.subheader("Simulation Results")
     
+    # Initialize environment
+    if environment_option == "Preset Environment":
+        environment = Environment(
+            num_patches=num_patches,
+            preset=Environment.cave_presets(preset_name)
+        )
+    else:
+        environment = Environment(num_patches=num_patches)
+        for patch in environment.patches:
+            patch["light_level"] = light_level
+            patch["food_availability"] = food_availability
+
     # Run the simulation
     with st.spinner("Running simulation..."):
-        results = run_simulation(
-            num_decades=num_decades,
-            initial_population_size=population_size,
-            mutation_rate=mutation_rate,
-            preset_name=preset_name,
-            num_patches=num_patches,
-            egg_count=egg_count,
-            carrying_capacity=carrying_capacity,
-        )
+        try:
+            results = run_simulation(
+                num_decades=num_decades,
+                initial_population_size=population_size,
+                mutation_rate=mutation_rate,
+                preset_name=preset_name,
+                num_patches=num_patches,
+                egg_count=egg_count,
+                carrying_capacity=carrying_capacity,
+            )
+        except Exception as e:
+            st.error(f"Error running simulation: {e}")
+            st.stop()
 
-    # Display Results
+\    # Display Results
     if results:
         st.success("Simulation Complete!")
 

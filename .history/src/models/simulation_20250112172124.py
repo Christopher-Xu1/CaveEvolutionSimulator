@@ -165,7 +165,6 @@ def run_simulation(
         "trait_averages": trait_averages,
         "food_availability": food_availabitlity_over_time,
     }
-    
 def plot_results_separate(population_sizes, average_fitness, trait_averages, food_availabitlity_over_time):
     generations = range(1, len(population_sizes) + 1)
 

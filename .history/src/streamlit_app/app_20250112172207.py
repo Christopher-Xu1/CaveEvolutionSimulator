@@ -1,4 +1,5 @@
 #to run in terminal: streamlit run streamlit_app/app.py
+
 import sys
 import os
 
@@ -11,6 +12,8 @@ import matplotlib.pyplot as plt
 import streamlit as st
 from models.simulation import run_simulation
 from models.environment import Environment
+
+
 
 # Title and Description
 st.title("Troglobite Evolution Simulation")
@@ -59,26 +62,44 @@ else:
         0.0, 1.0, 0.1
     )
     preset_name = None  # No preset used
+
+# Run the simulation
 if st.sidebar.button("Run Simulation"):
     st.subheader("Simulation Results")
     
+    # Initialize environment
+    if environment_option == "Preset Environment":
+        environment = Environment(
+            num_patches=num_patches,
+            preset=Environment.cave_presets(preset_name)
+        )
+    else:
+        environment = Environment(num_patches=num_patches)
+        for patch in environment.patches:
+            patch["light_level"] = light_level
+            patch["food_availability"] = food_availability
+
     # Run the simulation
     with st.spinner("Running simulation..."):
-        results = run_simulation(
-            num_decades=num_decades,
-            initial_population_size=population_size,
-            mutation_rate=mutation_rate,
-            preset_name=preset_name,
-            num_patches=num_patches,
-            egg_count=egg_count,
-            carrying_capacity=carrying_capacity,
-        )
+        try:
+            results = run_simulation(
+                num_decades=num_decades,
+                initial_population_size=population_size,
+                mutation_rate=mutation_rate,
+                preset_name=preset_name,
+                num_patches=num_patches,
+                egg_count=egg_count,
+                carrying_capacity=carrying_capacity,
+            )
+        except Exception as e:
+            st.error(f"Error running simulation: {e}")
+            st.stop()
 
     # Display Results
     if results:
         st.success("Simulation Complete!")
-
-        # Display population sizes
+        
+        # Display population size
         st.write("### Population Dynamics Over Generations")
         st.line_chart(results["population_sizes"])
 
@@ -91,8 +112,9 @@ if st.sidebar.button("Run Simulation"):
         for trait, values in results["trait_averages"].items():
             st.line_chart({trait: values})
 
-        # Display food availability
+        # Display resource usage
         st.write("### Food Availability Over Generations")
         st.line_chart(results["food_availability"])
+
     else:
         st.error("No results returned from simulation.")

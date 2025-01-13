@@ -159,13 +159,7 @@ def run_simulation(
     # Plotting Results
     plot_results_separate(population_sizes, average_fitness, trait_averages, food_availabitlity_over_time)
 
-    return {
-        "population_sizes": population_sizes,
-        "average_fitness": average_fitness,
-        "trait_averages": trait_averages,
-        "food_availability": food_availabitlity_over_time,
-    }
-    
+
 def plot_results_separate(population_sizes, average_fitness, trait_averages, food_availabitlity_over_time):
     generations = range(1, len(population_sizes) + 1)
 
@@ -213,7 +207,6 @@ def plot_results_separate(population_sizes, average_fitness, trait_averages, foo
     plt.grid(True)
     plt.tight_layout()
     plt.show()
-    
 
 
 if __name__ == "__main__":
@@ -236,6 +229,7 @@ if __name__ == "__main__":
     run_simulation(
         num_decades=100,
         initial_population_size=2000,
+        
         mutation_rate= 0.00185,
         preset_name="harsh_cave",
         num_patches=1,

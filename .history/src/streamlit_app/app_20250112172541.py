@@ -59,22 +59,9 @@ else:
         0.0, 1.0, 0.1
     )
     preset_name = None  # No preset used
-if st.sidebar.button("Run Simulation"):
-    st.subheader("Simulation Results")
-    
-    # Run the simulation
-    with st.spinner("Running simulation..."):
-        results = run_simulation(
-            num_decades=num_decades,
-            initial_population_size=population_size,
-            mutation_rate=mutation_rate,
-            preset_name=preset_name,
-            num_patches=num_patches,
-            egg_count=egg_count,
-            carrying_capacity=carrying_capacity,
-        )
 
-    # Display Results
+# Run the simulation
+# Display Results
     if results:
         st.success("Simulation Complete!")
 
