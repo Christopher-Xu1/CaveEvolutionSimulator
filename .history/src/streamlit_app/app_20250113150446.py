@@ -181,7 +181,6 @@ if st.session_state["simulation_ran"]:
 
     for trait, values in results["trait_averages"].items():
         st.markdown(f"- Final Average {trait.capitalize()}: **<b>{values[-1]:.4f}</b>**", unsafe_allow_html=True)
-    
     st.write("### Population Dynamics Over Generations")
     st.line_chart(results["population_sizes"])
 
