@@ -99,7 +99,7 @@ def run_simulation(
             # Calculate reproductive capability
             reproductive_capability = (organism.fitness ** 2) * ((egg_count) * (5*food_availability)**2 / egg_count)
             # Introduce slight randomness to offspring count
-            count = max(0, np.random.poisson(reproductive_capability))
+            count = max(0,int(random.gauss(reproductive_capability, 1)))
             offspring_counts.append(count)
             total_potential_offspring+=count
             
@@ -216,31 +216,31 @@ def plot_results_separate(population_sizes, average_fitness, trait_averages, foo
     
 
 
-# if __name__ == "__main__":
-#     # Uncomment the following block to enable user inputs
-#     """
-#     try:
-#         num_decades = int(input("Enter simulation runtime in decades: "))
-#         initial_population_size = int(input("Enter initial population size: "))
-#         preset_name = input("Enter cave preset (default_cave, rich_cave, harsh_cave): ")
-#         fitness_threshold = float(input("Enter minimum fitness threshold (e.g., 0.2): "))
-#         num_patches=int(input("Enter number of cave patches (1-5): "))
-#         egg_count = int(input("Enter egg count per reproduction event (e.g., 3000 for Astyanax mexicanus, 50 for mammoth cave fish): "))
-#         carrying_capacity = int(input("Enter carrying capacity (usually 500-5000): "))
-#     except ValueError as e:
-#         print(f"Invalid input: {e}")
-#         exit(1)
-#     """
+if __name__ == "__main__":
+    # Uncomment the following block to enable user inputs
+    """
+    try:
+        num_decades = int(input("Enter simulation runtime in decades: "))
+        initial_population_size = int(input("Enter initial population size: "))
+        preset_name = input("Enter cave preset (default_cave, rich_cave, harsh_cave): ")
+        fitness_threshold = float(input("Enter minimum fitness threshold (e.g., 0.2): "))
+        num_patches=int(input("Enter number of cave patches (1-5): "))
+        egg_count = int(input("Enter egg count per reproduction event (e.g., 3000 for Astyanax mexicanus, 50 for mammoth cave fish): "))
+        carrying_capacity = int(input("Enter carrying capacity (usually 500-5000): "))
+    except ValueError as e:
+        print(f"Invalid input: {e}")
+        exit(1)
+    """
 
-#     # Run the simulation with predefined parameters
-#     run_simulation(
-#         num_decades=100,
-#         initial_population_size=2000,
-#         mutation_rate= 0.00185,
-#         preset_name="harsh_cave",
-#         num_patches=1,
-#         egg_count=50,
-#         carrying_capacity=2000
+    # Run the simulation with predefined parameters
+    run_simulation(
+        num_decades=100,
+        initial_population_size=2000,
+        mutation_rate= 0.00185,
+        preset_name="harsh_cave",
+        num_patches=1,
+        egg_count=50,
+        carrying_capacity=2000
         
-#     )
-#     # To use user inputs, comment out the above run_simulation call and uncomment the block above.
+    )
+    # To use user inputs, comment out the above run_simulation call and uncomment the block above.

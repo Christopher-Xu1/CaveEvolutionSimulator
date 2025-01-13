@@ -99,7 +99,7 @@ def run_simulation(
             # Calculate reproductive capability
             reproductive_capability = (organism.fitness ** 2) * ((egg_count) * (5*food_availability)**2 / egg_count)
             # Introduce slight randomness to offspring count
-            count = max(0, np.random.poisson(reproductive_capability))
+    count = max(0, np.random.poisson(reproductive_capability))
             offspring_counts.append(count)
             total_potential_offspring+=count
             
