@@ -59,7 +59,6 @@ else:
         0.0, 1.0, 0.1
     )
     preset_name = None  # No preset used
-    
 if st.sidebar.button("Run Simulation"):
     st.subheader("Simulation Results")
 
