@@ -157,7 +157,7 @@ def run_simulation(
         # Collect population size data
         population_sizes.append(len(population))
 
-    ## Plotting Results
+    # Plotting Results
     # plot_results_separate(population_sizes, average_fitness, trait_averages, food_availabitlity_over_time)
 
     return {
