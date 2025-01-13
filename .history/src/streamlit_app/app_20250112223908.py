@@ -8,18 +8,10 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'models')))
 
-
+import pandas as pd
 import streamlit as st
 from models.simulation import run_simulation
 from models.environment import Environment
-
-import matplotlib
-import numpy
-import pandas as pd
-
-st.write(f"Matplotlib version: {matplotlib.__version__}")
-st.write(f"Numpy version: {numpy.__version__}")
-st.write(f"Pandas version: {pd.__version__}")
 
 # Title and Description
 st.title("Troglobite Evolution Simulation")
