@@ -3,8 +3,7 @@ import random
 from environment import Environment
 from organism import Organism
 from evolution import update_optimal_traits
-# import matplotlib.pyplot as plt 
-# commented out for streamlit
+import matplotlib.pyplot as plt
 
 
 def run_simulation(
@@ -167,53 +166,53 @@ def run_simulation(
         "food_availability": food_availabitlity_over_time,
     }
     
-# def plot_results_separate(population_sizes, average_fitness, trait_averages, food_availabitlity_over_time):
-#     generations = range(1, len(population_sizes) + 1)
+def plot_results_separate(population_sizes, average_fitness, trait_averages, food_availabitlity_over_time):
+    generations = range(1, len(population_sizes) + 1)
 
-#     # Plot Population Size
-#     plt.figure(figsize=(10, 6))
-#     plt.plot(generations, population_sizes, label="Population Size", color="blue", linewidth=2)
-#     plt.xlabel("Generation")
-#     plt.ylabel("Population Size")
-#     plt.title("Population Dynamics Over Generations")
-#     plt.legend()
-#     plt.grid(True)
-#     plt.tight_layout()
-#     plt.show()
+    # Plot Population Size
+    plt.figure(figsize=(10, 6))
+    plt.plot(generations, population_sizes, label="Population Size", color="blue", linewidth=2)
+    plt.xlabel("Generation")
+    plt.ylabel("Population Size")
+    plt.title("Population Dynamics Over Generations")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
     
-#     # Plot Resource Usage Over Generations
-#     plt.figure(figsize=(10, 6))
-#     plt.plot(generations, food_availabitlity_over_time, label="Food Availability", color="purple", linewidth=2)
-#     plt.xlabel("Generation")
-#     plt.ylabel("Food Availability")
-#     plt.title("Food Availability Usage Over Generations")
-#     plt.legend()
-#     plt.grid(True)
-#     plt.tight_layout()
-#     plt.show()
+    # Plot Resource Usage Over Generations
+    plt.figure(figsize=(10, 6))
+    plt.plot(generations, food_availabitlity_over_time, label="Food Availability", color="purple", linewidth=2)
+    plt.xlabel("Generation")
+    plt.ylabel("Food Availability")
+    plt.title("Food Availability Usage Over Generations")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
 
-#     # Plot Average Fitness
-#     plt.figure(figsize=(10, 6))
-#     plt.plot(generations, average_fitness, label="Average Fitness", color="green", linewidth=2)
-#     plt.xlabel("Generation")
-#     plt.ylabel("Average Fitness")
-#     plt.title("Fitness Trends Over Generations")
-#     plt.legend()
-#     plt.grid(True)
-#     plt.tight_layout()
-#     plt.show()
+    # Plot Average Fitness
+    plt.figure(figsize=(10, 6))
+    plt.plot(generations, average_fitness, label="Average Fitness", color="green", linewidth=2)
+    plt.xlabel("Generation")
+    plt.ylabel("Average Fitness")
+    plt.title("Fitness Trends Over Generations")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
 
-#     # Plot Trait Averages Together
-#     plt.figure(figsize=(10, 6))
-#     for trait, averages in trait_averages.items():
-#         plt.plot(generations, averages, label=f"Average {trait.capitalize()}", linewidth=2)
-#     plt.xlabel("Generation")
-#     plt.ylabel("Average Trait Value")
-#     plt.title("Trait Evolution Over Generations")
-#     plt.legend()
-#     plt.grid(True)
-#     plt.tight_layout()
-#     plt.show()
+    # Plot Trait Averages Together
+    plt.figure(figsize=(10, 6))
+    for trait, averages in trait_averages.items():
+        plt.plot(generations, averages, label=f"Average {trait.capitalize()}", linewidth=2)
+    plt.xlabel("Generation")
+    plt.ylabel("Average Trait Value")
+    plt.title("Trait Evolution Over Generations")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
     
 
 

@@ -4,7 +4,7 @@ from environment import Environment
 from organism import Organism
 from evolution import update_optimal_traits
 # import matplotlib.pyplot as plt 
-# commented out for streamlit
+# commented out for streamlitapp
 
 
 def run_simulation(

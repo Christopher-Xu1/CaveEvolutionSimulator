@@ -3,8 +3,7 @@ import random
 from environment import Environment
 from organism import Organism
 from evolution import update_optimal_traits
-# import matplotlib.pyplot as plt 
-# commented out for streamlit
+import matplotlib.pyplot as plt
 
 
 def run_simulation(
