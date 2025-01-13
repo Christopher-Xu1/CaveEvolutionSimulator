@@ -133,7 +133,9 @@ if "results" in st.session_state:
         mime="text/csv",
     )
     
+    
 import pandas as pd
+
 # Function to prepare simulation data for download
 def prepare_csv_data(results):
     # Create a DataFrame for population sizes and average fitness

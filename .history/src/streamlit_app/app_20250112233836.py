@@ -115,8 +115,6 @@ if "results" in st.session_state:
     else:
         st.write("No traits selected for display.")
 
-
-
 # Add a download button after the simulation results are displayed
 if "results" in st.session_state:
     results = st.session_state["results"]
@@ -133,7 +131,9 @@ if "results" in st.session_state:
         mime="text/csv",
     )
     
+    
 import pandas as pd
+
 # Function to prepare simulation data for download
 def prepare_csv_data(results):
     # Create a DataFrame for population sizes and average fitness

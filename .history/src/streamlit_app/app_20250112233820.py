@@ -116,24 +116,8 @@ if "results" in st.session_state:
         st.write("No traits selected for display.")
 
 
-
-# Add a download button after the simulation results are displayed
-if "results" in st.session_state:
-    results = st.session_state["results"]
-
-    # Prepare the CSV data
-    csv_data = prepare_csv_data(results)
-    csv_file = csv_data.to_csv(index=False)
-
-    # Add a download button
-    st.download_button(
-        label="Download Simulation Results as CSV",
-        data=csv_file,
-        file_name="simulation_results.csv",
-        mime="text/csv",
-    )
-    
 import pandas as pd
+
 # Function to prepare simulation data for download
 def prepare_csv_data(results):
     # Create a DataFrame for population sizes and average fitness
@@ -154,4 +138,18 @@ def prepare_csv_data(results):
     df = pd.DataFrame(data)
     return df
 
+# Add a download button after the simulation results are displayed
+if "results" in st.session_state:
+    results = st.session_state["results"]
 
+    # Prepare the CSV data
+    csv_data = prepare_csv_data(results)
+    csv_file = csv_data.to_csv(index=False)
+
+    # Add a download button
+    st.download_button(
+        label="Download Simulation Results as CSV",
+        data=csv_file,
+        file_name="simulation_results.csv",
+        mime="text/csv",
+    )

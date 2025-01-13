@@ -81,7 +81,7 @@ if st.sidebar.button("Run Simulation"):
             mutation_rate=mutation_rate,
             preset_name=preset_name,  # None for custom environment
             num_patches=num_patches,
-            egg_count=50,
+            egg_count=egg_count,
             carrying_capacity=carrying_capacity,
         )
         # Store results in session state
@@ -114,44 +114,3 @@ if "results" in st.session_state:
         st.line_chart(selected_traits)
     else:
         st.write("No traits selected for display.")
-
-
-
-# Add a download button after the simulation results are displayed
-if "results" in st.session_state:
-    results = st.session_state["results"]
-
-    # Prepare the CSV data
-    csv_data = prepare_csv_data(results)
-    csv_file = csv_data.to_csv(index=False)
-
-    # Add a download button
-    st.download_button(
-        label="Download Simulation Results as CSV",
-        data=csv_file,
-        file_name="simulation_results.csv",
-        mime="text/csv",
-    )
-    
-import pandas as pd
-# Function to prepare simulation data for download
-def prepare_csv_data(results):
-    # Create a DataFrame for population sizes and average fitness
-    data = {
-        "Generation": list(range(1, len(results["population_sizes"]) + 1)),
-        "Population Size": results["population_sizes"],
-        "Average Fitness": results["average_fitness"],
-    }
-
-    # Add traits to the DataFrame
-    for trait, values in results["trait_averages"].items():
-        data[f"Trait - {trait.capitalize()}"] = values
-
-    # Add food availability
-    data["Food Availability"] = results["food_availability"]
-
-    # Convert to DataFrame
-    df = pd.DataFrame(data)
-    return df
-
-
