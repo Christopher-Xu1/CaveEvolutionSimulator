@@ -176,12 +176,12 @@ if st.session_state["simulation_ran"]:
     results = st.session_state["results"]
     # Summary Section
     st.write("### Simulation Summary")
-    st.markdown(f"- Final Population Size: **<b>{results['population_sizes'][-1]}</b>**", unsafe_allow_html=True)
-    st.markdown(f"- Final Average Fitness: **<b>{results['average_fitness'][-1]:.4f}</b>**", unsafe_allow_html=True)
-
+    st.write(f"- Final Population Size: {results['population_sizes'][-1]}")
+    st.write(f"- Final Average Fitness: {results['average_fitness'][-1]:.4f}")
     for trait, values in results["trait_averages"].items():
-        st.markdown(f"- Final Average {trait.capitalize()}: **<b>{values[-1]:.4f}</b>**", unsafe_allow_html=True)
-    cs
+        st.write(f"- Final Average {trait.capitalize()}: {values[-1]:.4f}")
+        
+    # Plot population dynamics
     st.write("### Population Dynamics Over Generations")
     st.line_chart(results["population_sizes"])
 

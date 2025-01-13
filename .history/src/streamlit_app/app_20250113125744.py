@@ -175,13 +175,13 @@ if st.sidebar.button("Run Simulation"):
 if st.session_state["simulation_ran"]:
     results = st.session_state["results"]
     # Summary Section
-    st.write("### Simulation Summary")
-    st.markdown(f"- Final Population Size: **<b>{results['population_sizes'][-1]}</b>**", unsafe_allow_html=True)
-    st.markdown(f"- Final Average Fitness: **<b>{results['average_fitness'][-1]:.4f}</b>**", unsafe_allow_html=True)
+st.write("### Simulation Summary")
+st.markdown(f"- Final Population Size: **<b>{results['population_sizes'][-1]}</b>**", unsafe_allow_html=True)
+st.markdown(f"- Final Average Fitness: **<b>{results['average_fitness'][-1]:.4f}</b>**", unsafe_allow_html=True)
 
-    for trait, values in results["trait_averages"].items():
-        st.markdown(f"- Final Average {trait.capitalize()}: **<b>{values[-1]:.4f}</b>**", unsafe_allow_html=True)
-    cs
+for trait, values in results["trait_averages"].items():
+    st.markdown(f"- Final Average {trait.capitalize()}: **<b>{values[-1]:.4f}</b>**", unsafe_allow_html=True)
+cs
     st.write("### Population Dynamics Over Generations")
     st.line_chart(results["population_sizes"])
 
