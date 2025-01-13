@@ -51,7 +51,7 @@ class Organism:
         )
 
         # Energy cost (metabolic rate and maintenance)
-        C = 0.25 * self.metabolic_rate
+        C = 0.2 * self.metabolic_rate
 
         # Fitness calculation
         self.fitness = max(0, W_r + W_a - C)

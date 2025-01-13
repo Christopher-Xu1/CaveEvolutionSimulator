@@ -41,7 +41,7 @@ class Organism:
         # Contribution from regressive traits (energy savings)
         W_r = (
             0.25 * (1 - self.genetics['pigmentation']) + 
-            0.12 * (1 - self.genetics['eye_size'])
+            0.15 * (1 - self.genetics['eye_size'])
         )
 
         # Contribution from adaptive traits (sensory enhancements)
@@ -51,7 +51,7 @@ class Organism:
         )
 
         # Energy cost (metabolic rate and maintenance)
-        C = 0.25 * self.metabolic_rate
+        C = 0.2 * self.metabolic_rate
 
         # Fitness calculation
         self.fitness = max(0, W_r + W_a - C)
