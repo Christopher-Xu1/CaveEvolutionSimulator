@@ -102,7 +102,6 @@ else:
     )
     preset_name = None  # No preset used
 
-# Save and Load Configuration
 if st.sidebar.button("Save Configuration"):
     # Prepare the configuration as a dictionary
     config = {
@@ -126,19 +125,6 @@ if st.sidebar.button("Save Configuration"):
         file_name="simulation_config.json",
         mime="application/json",
     )
-
-
-uploaded_file = st.sidebar.file_uploader("Load Configuration", type="json")
-if uploaded_file is not None:
-    config = json.load(uploaded_file)
-    num_decades = config["num_decades"]
-    population_size = config["population_size"]
-    mutation_rate = config["mutation_rate"]
-    carrying_capacity = config["carrying_capacity"]
-    num_patches = config["num_patches"]
-    light_level = config["light_level"]
-    food_availability = config["food_availability"]
-    preset_name = config["preset_name"]
 
 # Run simulation and store results in session state
 if st.sidebar.button("Run Simulation"):

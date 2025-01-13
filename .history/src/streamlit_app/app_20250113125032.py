@@ -104,7 +104,6 @@ else:
 
 # Save and Load Configuration
 if st.sidebar.button("Save Configuration"):
-    # Prepare the configuration as a dictionary
     config = {
         "num_decades": num_decades,
         "population_size": population_size,
@@ -115,18 +114,8 @@ if st.sidebar.button("Save Configuration"):
         "food_availability": food_availability,
         "preset_name": preset_name,
     }
-
-    # Convert configuration to JSON string
-    config_json = json.dumps(config, indent=4)
-
-    # Add a download button to save the configuration
-    st.download_button(
-        label="Download Configuration",
-        data=config_json,
-        file_name="simulation_config.json",
-        mime="application/json",
-    )
-
+    config_json = json.dumps(config)
+    st.download_button("Download Configuration", config_json, "config.json", "application/json")
 
 uploaded_file = st.sidebar.file_uploader("Load Configuration", type="json")
 if uploaded_file is not None:
