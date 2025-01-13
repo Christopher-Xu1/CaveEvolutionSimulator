@@ -13,6 +13,8 @@ import streamlit as st
 from models.simulation import run_simulation
 from models.environment import Environment
 
+import numpy
+import pandas as pd
 
 st.write(f"Numpy version: {numpy.__version__}")
 st.write(f"Pandas version: {pd.__version__}")
