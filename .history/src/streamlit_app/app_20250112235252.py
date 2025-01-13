@@ -34,7 +34,7 @@ def prepare_csv_data(results):
 
 # Title and Description
 st.title("Cave Fish Evolution Simulation")
-st.write()
+st.write("Simulate the evolution of troglobite traits in cave environments by testing out different cave conditions and fish populations.")
 # Sidebar for simulation parameters
 # Instructions
 if "simulation_ran" not in st.session_state:
@@ -43,7 +43,7 @@ if not st.session_state["simulation_ran"]:
     st.write("""
         ## Welcome to the Troglobite Evolution Simulator!
         
-        Simulate the evolution of troglobite traits in cave environments by testing out different cave conditions and fish populations.
+        This tool models the evolution of organisms in cave environments, simulating how traits like pigmentation, eye size, and metabolic rate adapt over time. The simulation explores key challenges of cave life, including limited food, perpetual darkness, and isolation.
 
         ### How to Use the Simulator
         1. **Select an Environment**:

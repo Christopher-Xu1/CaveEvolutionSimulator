@@ -43,7 +43,7 @@ if not st.session_state["simulation_ran"]:
     st.write("""
         ## Welcome to the Troglobite Evolution Simulator!
         
-        Simulate the evolution of troglobite traits in cave environments by testing out different cave conditions and fish populations.
+        "Simulate the evolution of troglobite traits in cave environments by testing out different cave conditions and fish populations.
 
         ### How to Use the Simulator
         1. **Select an Environment**:

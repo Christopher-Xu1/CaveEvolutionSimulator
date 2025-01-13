@@ -34,30 +34,8 @@ def prepare_csv_data(results):
 
 # Title and Description
 st.title("Cave Fish Evolution Simulation")
-st.write()
+st.write("Simulate the evolution of troglobite traits in cave environments by creating your own cave and cave fish population.")
 # Sidebar for simulation parameters
-# Instructions
-if "simulation_ran" not in st.session_state:
-    st.session_state["simulation_ran"] = False
-if not st.session_state["simulation_ran"]:
-    st.write("""
-        ## Welcome to the Troglobite Evolution Simulator!
-        
-        Simulate the evolution of troglobite traits in cave environments by testing out different cave conditions and fish populations.
-
-        ### How to Use the Simulator
-        1. **Select an Environment**:
-           - Choose a **preset environment** like `default_cave`, `rich_cave`, or `harsh_cave`, or configure a **custom environment** with your own parameters.
-        2. **Adjust Simulation Parameters**:
-           - Customize settings such as the number of decades, mutation rate, and carrying capacity in the sidebar.
-        3. **Run the Simulation**:
-           - Click **"Run Simulation"** to watch populations evolve across generations.
-        
-        Once the simulation completes, you'll see graphs showing population dynamics, trait evolution, average fitness, and resource availability. You can also download the results as a CSV for further analysis.
-        """)
-
-
-
 st.sidebar.header("Simulation Parameters")
 num_decades = st.sidebar.number_input("Number of Decades", min_value=1, value=10)
 population_size = st.sidebar.number_input("Initial Population Size", min_value=100, value=500)
@@ -130,11 +108,10 @@ if st.sidebar.button("Run Simulation"):
         )
         # Store results in session state
         st.session_state["results"] = results
-        st.session_state["simulation_ran"] = True
         st.success("Simulation Complete!")
 
 # Check if simulation results exist
-if st.session_state["simulation_ran"]:
+if "results" in st.session_state:
     results = st.session_state["results"]
 
     # Plot population dynamics
