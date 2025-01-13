@@ -1,4 +1,4 @@
-
+import streamlit as st
 import sys
 import os
 
@@ -6,17 +6,13 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'models')))
 
-
+from models.simulation import run_simulation  # Import your simulation logic
+from models.simulation import run_simulation
 import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
 from models.simulation import run_simulation
 from models.environment import Environment
-
-# Title and Description
-st.title("Troglobite Evolution Simulation")
-st.write("Simulate the evolution of troglobite traits in cave environments.")
-
 
 # Sidebar for Simulation Parameters
 st.sidebar.header("Simulation Parameters")

@@ -9,17 +9,14 @@ import matplotlib.pyplot as plt
 def run_simulation(
     num_decades,
     initial_population_size,
-    mutation_rate,
+    mutation_rate=0.00185,
     preset_name,
     num_patches,
     egg_count,
     carrying_capacity,
     
-
-    
-):  
-    
-    #defualt mutation_rate = 0.00185
+):
+    mutation_rate = 0.00185
     num_generations = num_decades * 10  # 10 generations per decade
     environment = Environment(num_patches=num_patches, preset=Environment.cave_presets(preset_name))
     
@@ -229,7 +226,8 @@ if __name__ == "__main__":
     run_simulation(
         num_decades=100,
         initial_population_size=2000,
-        mutation_rate= 0.00185,
+        mutation_rate=,
+
         preset_name="harsh_cave",
         num_patches=1,
         egg_count=50,
