@@ -44,6 +44,12 @@ if not st.session_state["simulation_ran"]:
     st.write("""
         ## Welcome to the Troglobite Evolution Simulator!
         
+# The line `Simulate the evolution of troglobite traits in cave environments by testing out different
+# cave conditions and fish populations.` is providing a brief description or introduction to the
+# purpose of the Troglobite Evolution Simulator. It explains that the simulator allows users to
+# simulate the evolution of troglobite traits in cave environments by experimenting with various cave
+# conditions and fish populations. This description helps users understand the main goal or
+# functionality of the simulator before they proceed to interact with it.
         Simulate the evolution of troglobite traits in cave environments by testing out different cave conditions and fish populations.
 
         ### How to Use the Simulator
@@ -51,7 +57,7 @@ if not st.session_state["simulation_ran"]:
            - Choose a **preset environment** like `default_cave`, `rich_cave`, or `harsh_cave`, or configure a **custom environment** with your own parameters.
         2. **Adjust Simulation Parameters**:
            - Customize settings such as the number of decades, mutation rate, and carrying capacity in the sidebar.
-           - You can save your settings and use them later by pressing the `Save Settings` button and pressing `Download Settings` before running the simulation.
+           - You can save your settings and use them later by pressing the Save Settings button and pressing Download Settings before running the simulation.
         3. **Run the Simulation**:
            - Click **"Run Simulation"** to watch populations evolve across generations.
         
