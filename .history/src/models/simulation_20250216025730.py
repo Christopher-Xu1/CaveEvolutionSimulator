@@ -146,9 +146,7 @@ def run_simulation(
             food_consumed = (count * patch['food_availability'] *  trait_averages["metabolic_rate"][- 1]) / (carrying_capacity/num_patches)
             patch['food_availability'] = (patch['food_availability'] - food_consumed)
             print(f"Patch {patch_id}: Food consumed = {food_consumed:.4f}, Remaining food = {patch['food_availability']:.4f}")
-            patch['food_availability_previous'] = patch['food_availability']
 
-        
         # Track resource usage
         food_availabitlity_over_time.append(patch['food_availability'])
         

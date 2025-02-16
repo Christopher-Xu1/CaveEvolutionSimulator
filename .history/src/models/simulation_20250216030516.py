@@ -217,7 +217,7 @@ def run_simulation(
     
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 #     # Uncomment the following block to enable user inputs
 #     """
 #     try:

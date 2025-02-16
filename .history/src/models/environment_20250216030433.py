@@ -35,9 +35,9 @@ class Environment:
             prev_value = patch.get('food_availability_previous', patch['food_availability'])
             
             # Increase current availability by 30% of last generation's value
-            patch['food_availability'] = max(
-            0,
-            patch['food_availability'] + 0.3 * prev_value
+                patch['food_availability'] = max(
+                0,
+                patch['food_availability'] + 0.3 * prev_value
             )
 
     def get_patch(self):

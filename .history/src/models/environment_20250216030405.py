@@ -30,15 +30,15 @@ class Environment:
             else:
                 patch['food_availability'] = max(0, min(1, patch['food_availability'] + random.uniform(-0.1, 0.1)))
     def replenish_food(self):
-        for patch in self.patches:
-            # Use the previous generation's food availability
-            prev_value = patch.get('food_availability_previous', patch['food_availability'])
-            
-            # Increase current availability by 30% of last generation's value
-            patch['food_availability'] = max(
+    for patch in self.patches:
+        # Use the previous generation's food availability
+        prev_value = patch.get('food_availability_previous', patch['food_availability'])
+        
+        # Increase current availability by 30% of last generation's value
+        patch['food_availability'] = max(
             0,
             patch['food_availability'] + 0.3 * prev_value
-            )
+        )
 
     def get_patch(self):
         if not self.patches:
