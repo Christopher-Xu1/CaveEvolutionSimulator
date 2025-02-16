@@ -40,7 +40,7 @@ class Organism:
 
         # Contribution from regressive traits (energy savings)
         W_r = (
-            0.125 * (1 - self.genetics['pigmentation']) + 
+            0.12 * (1 - self.genetics['pigmentation']) + 
             0.125 * (1 - self.genetics['eye_size'])
         )
 
