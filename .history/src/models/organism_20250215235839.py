@@ -19,7 +19,7 @@ class Organism:
     def mutate(self, mutation_rate):
         for trait in self.genetics:
             if random.random() < mutation_rate:
-                mutation_amount = random.gauss(0, 0.2)
+                mutation_amount = random.gauss(0, 0.)
                 self.genetics[trait] = max(0, min(1, self.genetics[trait] + mutation_amount))
 
     @staticmethod

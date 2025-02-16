@@ -96,7 +96,7 @@ def run_simulation(
             # Get food availability of the current patch
             food_availability = organism.environment_patch.get('food_availability')
             # Calculate reproductive capability
-            reproductive_capability = (organism.fitness ** 2) * (np.sqrt(5*food_availability))
+            reproductive_capability = (organism.fitness ** 2) * ((egg_count) * (5*food_availability)**2 / egg_count)
             # Introduce slight randomness to offspring count
             count = max(0, np.random.poisson(reproductive_capability))
             offspring_counts.append(count)
@@ -215,7 +215,7 @@ def run_simulation(
     
 
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
 #     # Uncomment the following block to enable user inputs
 #     """
 #     try:
@@ -231,15 +231,15 @@ def run_simulation(
 #         exit(1)
 #     """
 
-#     # Run the simulation with predefined parameters
-#     run_simulation(
-#         num_decades=100,
-#         initial_population_size=2000,
-#         mutation_rate= 0.00185,
-#         preset_name="harsh_cave",
-#         num_patches=1,
-#         egg_count=50,
-#         carrying_capacity=2000
+    # Run the simulation with predefined parameters
+    run_simulation(
+        num_decades=100,
+        initial_population_size=2000,
+        mutation_rate= 0.00185,
+        preset_name="harsh_cave",
+        num_patches=1,
+        egg_count=50,
+        carrying_capacity=2000
         
-#     )
+    )
 #     # To use user inputs, comment out the above run_simulation call and uncomment the block above.
