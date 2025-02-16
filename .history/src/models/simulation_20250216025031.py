@@ -215,7 +215,7 @@ def run_simulation(
     
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
 #     # Uncomment the following block to enable user inputs
 #     """
 #     try:
@@ -233,12 +233,12 @@ if __name__ == "__main__":
 
     # Run the simulation with predefined parameters
     run_simulation(
-        num_decades=10,
-        initial_population_size=1000,
+        num_decades=100,
+        initial_population_size=2000,
         mutation_rate= 0.00185,
-        preset_name="default_cave",
+        preset_name="harsh_cave",
         num_patches=1,
-        egg_count=500,
+        egg_count=50,
         carrying_capacity=2000
         
     )

@@ -8,7 +8,7 @@ class Organism:
             self.genetics = {
                 'pigmentation': max(0,random.gauss(0.5, 0.181)),  # Regressive trait
                 'eye_size': max(0, random.gauss(0.5, 0.181)),      # Regressive trait
-                'lateral_line': max(0,random.gauss(0.5, 0.181)),  # Adaptive trait
+                'lateral_line': max(0,random.gauss(0., 0.181)),  # Adaptive trait
                 'olfactory_bulb': max(0,random.gauss(0.5, 0.181)) # Adaptive trait
             }
         self.metabolic_rate = (self.genetics['pigmentation']+self.genetics['eye_size'] + self.genetics['lateral_line'] + self.genetics['olfactory_bulb'])/4
